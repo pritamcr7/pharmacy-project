@@ -30,11 +30,13 @@ const RegistrationForm = () => {
   const [cityaddress, setcityaddress] = useState("");
   const [stateaddress, setstateaddress] = useState("");
   const [countryaddress, setcountryaddress] = useState("");
+  const [pincode, setpincode] = useState(null);
 
   const [permaaddress, setpermaaddress] = useState("");
   const [permacityaddress, setpermacityaddress] = useState("");
   const [permastateaddress, setpermastateaddress] = useState("");
   const [permacountryaddress, setpermacountryaddress] = useState("");
+  const [permapincode, setpermapincode] = useState(null);
 
   const [doctor, setdoctor] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -54,6 +56,7 @@ const RegistrationForm = () => {
     setpermacityaddress(cityaddress);
     setpermastateaddress(stateaddress);
     setpermacountryaddress(countryaddress);
+    setpermapincode(pincode);
   };
 
   let today = new Date();
@@ -206,6 +209,16 @@ const RegistrationForm = () => {
                           placeholder="City"
                           onChange={(e) => setcityaddress(e.target.value)}
                         />
+                        <Form.Group
+                          className="mb-1"
+                          as={Col}
+                          controlId="formGridAddress5"
+                        >
+                          <Form.Control
+                            placeholder="Pin Code"
+                            onChange={(e) => setpincode(e.target.value)}
+                          />
+                        </Form.Group>
                       </Form.Group>
                       <Form.Group
                         className="mb-1"
@@ -269,6 +282,16 @@ const RegistrationForm = () => {
                       <Form.Group
                         className="mb-1"
                         as={Col}
+                        controlId="formGridAddress5"
+                      >
+                        <Form.Control
+                          placeholder="Pin Code"
+                          value={permapincode}
+                        />
+                      </Form.Group>
+                      <Form.Group
+                        className="mb-1"
+                        as={Col}
                         controlId="formGridAddress3"
                       >
                         <Form.Control
@@ -294,13 +317,25 @@ const RegistrationForm = () => {
 
             <Row className="mb3">
               <Col>
-                <Form.Control placeholder="Contact No." />
+                <Form.Control className="mt1" placeholder="Contact No." />
               </Col>
               <Col>
                 <Form.Control placeholder="Email ID" />
               </Col>
               <Col>
-                <Form.Control placeholder="Blood Group" />
+                <Form.Group controlId="formGridBloodGroup">
+                  <Form.Select defaultValue="Blood Group">
+                    <option>Blood Group</option>
+                    <option>O+</option>
+                    <option>O-</option>
+                    <option>A+</option>
+                    <option>A-</option>
+                    <option>B+</option>
+                    <option>B-</option>
+                    <option>AB+</option>
+                    <option>AB-</option>
+                  </Form.Select>
+                </Form.Group>
               </Col>
             </Row>
             <Row className="mt-3">

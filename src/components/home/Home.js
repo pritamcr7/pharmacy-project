@@ -10,7 +10,9 @@ const Home = () => {
   return (
     <div className="home-page">
       <Navbar className="navbar">
-        <Navbar.Brand>{"    "}ABC Hospital</Navbar.Brand>
+        <Navbar.Brand>
+          <span className="hospitalname">ABC Hospital</span>
+        </Navbar.Brand>
         <Nav className="me-auto mb-1">
           <Nav.Link href="">Home</Nav.Link>
           <Nav.Link href="registration">Registration</Nav.Link>

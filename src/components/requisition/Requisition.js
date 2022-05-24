@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Button, Form, Row, Col, Badge } from "react-bootstrap";
+import { Card, Form, Row, Col, Badge } from "react-bootstrap";
 import { useAuth } from "../auth";
 
 const AppointMentRequisition = () => {

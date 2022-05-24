@@ -11,7 +11,8 @@ const Home = () => {
     <div className="home-page">
       <Navbar className="navbar">
         <Navbar.Brand>
-          <img src={pharmacyImage} width="100px" height="75px" /> ABC Hospital
+          <img src={pharmacyImage} width="100px" height="75px" alt="logopic" />{" "}
+          ABC Hospital
         </Navbar.Brand>
         <Nav className="me-auto mb-1">
           <Nav.Link href="">Home</Nav.Link>

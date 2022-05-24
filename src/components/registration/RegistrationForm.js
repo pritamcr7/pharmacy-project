@@ -7,12 +7,15 @@ import {
   FormControl,
   Row,
   Col,
+  Figure,
+  Image,
 } from "react-bootstrap";
 import "./Registration.css";
 import DatePicker from "react-datepicker";
 import { useNavigate } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import { useAuth } from "../auth";
+import profile from "../../images/profile.png";
 
 function simulateNetworkRequest() {
   return new Promise((resolve) => setTimeout(resolve, 3000));
@@ -24,7 +27,15 @@ const RegistrationForm = () => {
   const [lastName, setlastName] = useState(null);
   const [startDate, setStartDate] = useState(new Date());
   const [address, setaddress] = useState("");
+  const [cityaddress, setcityaddress] = useState("");
+  const [stateaddress, setstateaddress] = useState("");
+  const [countryaddress, setcountryaddress] = useState("");
+
   const [permaaddress, setpermaaddress] = useState("");
+  const [permacityaddress, setpermacityaddress] = useState("");
+  const [permastateaddress, setpermastateaddress] = useState("");
+  const [permacountryaddress, setpermacountryaddress] = useState("");
+
   const [doctor, setdoctor] = useState("");
   const [isLoading, setLoading] = useState(false);
 
@@ -32,7 +43,17 @@ const RegistrationForm = () => {
   const navigate = useNavigate();
 
   const Address = () => {
+    console.log(
+      permaaddress,
+      permacityaddress,
+      permastateaddress,
+      permacountryaddress
+    );
+
     setpermaaddress(address);
+    setpermacityaddress(cityaddress);
+    setpermastateaddress(stateaddress);
+    setpermacountryaddress(countryaddress);
   };
 
   let today = new Date();
@@ -68,24 +89,51 @@ const RegistrationForm = () => {
       <Card>
         <Card.Body>
           <Form>
-            <Form.Group className="mb-3">
-              <Form.Label>Registration No.</Form.Label>
-              <Form.Control type="text" placeholder={registration} disabled />
-              <Form.Text className="text-muted">
-                Note Registration No. For Future Reference
-              </Form.Text>
-            </Form.Group>
-            <InputGroup className="mb-3">
-              <InputGroup.Text>First and Last name</InputGroup.Text>
-              <FormControl
-                aria-label="First name"
-                onChange={(e) => setfirstName(e.target.value)}
-              />
-              <FormControl
-                aria-label="Last name"
-                onChange={(e) => setlastName(e.target.value)}
-              />
-            </InputGroup>
+            <Row>
+              <Col sm={8}>
+                <Form.Group className="mb-3">
+                  <Form.Label>Registration No.</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder={registration}
+                    disabled
+                  />
+                  <Form.Text className="text-muted">
+                    Note Registration No. For Future Reference
+                  </Form.Text>
+                </Form.Group>
+                <InputGroup className="mb-3">
+                  <InputGroup.Text>First and Last name</InputGroup.Text>
+                  <FormControl
+                    aria-label="First name"
+                    onChange={(e) => setfirstName(e.target.value)}
+                  />
+                  <FormControl
+                    aria-label="Last name"
+                    onChange={(e) => setlastName(e.target.value)}
+                  />
+                </InputGroup>
+              </Col>
+              <Col sm={4}>
+                <Figure className="Profilepicture">
+                  <Image
+                    width={171}
+                    height={180}
+                    src={profile}
+                    alt="profile"
+                    fluid
+                  />
+                  <Figure.Caption>
+                    Upload Profile Picture
+                    <div className="mt-3">
+                      <form action="/action_page.php">
+                        <input type="file" id="myFile" name="filename" />
+                      </form>
+                    </div>
+                  </Figure.Caption>
+                </Figure>
+              </Col>
+            </Row>
             <Row className="mb-3">
               <Col sm={2}>
                 <Form.Group>
@@ -134,26 +182,114 @@ const RegistrationForm = () => {
             </Row>
 
             <Row className="mb-3">
-              <Form.Group as={Col} controlId="formGridAddress1">
-                <Form.Label>Current Address</Form.Label>
-                <Form.Control
-                  placeholder="1234 Main St"
-                  onChange={(e) => setaddress(e.target.value)}
-                />
-              </Form.Group>
+              <Col sm={5}>
+                <Card style={{ width: "30rem" }}>
+                  <Card.Body>
+                    <Card.Title>Current Address</Card.Title>
+                    <Card.Text>
+                      <Form.Group
+                        className="mb-1"
+                        as={Col}
+                        controlId="formGridAddress1"
+                      >
+                        <Form.Control
+                          placeholder="Street"
+                          onChange={(e) => setaddress(e.target.value)}
+                        />
+                      </Form.Group>
+                      <Form.Group
+                        className="mb-1"
+                        as={Col}
+                        controlId="formGridAddress2"
+                      >
+                        <Form.Control
+                          placeholder="City"
+                          onChange={(e) => setcityaddress(e.target.value)}
+                        />
+                      </Form.Group>
+                      <Form.Group
+                        className="mb-1"
+                        as={Col}
+                        controlId="formGridAddress3"
+                      >
+                        <Form.Control
+                          placeholder="State"
+                          onChange={(e) => setstateaddress(e.target.value)}
+                        />
+                      </Form.Group>
+                      <Form.Group
+                        className="mb-1"
+                        as={Col}
+                        controlId="formGridAddress4"
+                      >
+                        <Form.Control
+                          placeholder="Country"
+                          onChange={(e) => setcountryaddress(e.target.value)}
+                        />
+                      </Form.Group>
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col sm={2}>
+                <Form.Group as={Col} controlId="formBasicCheckbox">
+                  <Form.Check
+                    type="checkbox"
+                    label="Same As Current Address"
+                    onChange={Address}
+                  />
+                </Form.Group>
+              </Col>
 
-              <Form.Group as={Col} controlId="formBasicCheckbox">
-                <Form.Check
-                  type="checkbox"
-                  label="Same As Current Address"
-                  onChange={Address}
-                />
-              </Form.Group>
-
-              <Form.Group as={Col} controlId="formGridAddress2">
-                <Form.Label>Permanent Address</Form.Label>
-                <Form.Control placeholder="1234 Main St" value={permaaddress} />
-              </Form.Group>
+              <Col sm={5}>
+                <Card style={{ width: "30rem" }}>
+                  <Card.Body>
+                    <Card.Title>Permanent Address</Card.Title>
+                    <Card.Text>
+                      <Form.Group
+                        className="mb-1"
+                        as={Col}
+                        controlId="formGridAddress1"
+                      >
+                        <Form.Control
+                          placeholder="Street"
+                          value={permaaddress}
+                        />
+                      </Form.Group>
+                      <Form.Group
+                        className="mb-1"
+                        as={Col}
+                        controlId="formGridAddress2"
+                      >
+                        <Form.Control
+                          placeholder="City"
+                          value={permacityaddress}
+                        />
+                      </Form.Group>
+                      <Form.Group
+                        className="mb-1"
+                        as={Col}
+                        controlId="formGridAddress3"
+                      >
+                        <Form.Control
+                          placeholder="State"
+                          value={permastateaddress}
+                        />
+                      </Form.Group>
+                      <Form.Group
+                        className="mb-1"
+                        as={Col}
+                        controlId="formGridAddress4"
+                      >
+                        <Form.Control
+                          placeholder="Country"
+                          value={permacountryaddress}
+                        />
+                      </Form.Group>
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
             </Row>
 
             <Row className="mb3">
